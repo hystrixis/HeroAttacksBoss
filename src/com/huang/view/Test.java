@@ -10,13 +10,12 @@ import com.huang.controller.StartBattle;
  * @author huangyao
  * @date 2017年11月30日
  */
+
 public class Test {
 
 	public static void main(String[] args) throws InterruptedException, ClassNotFoundException {
-		
 		//开始战斗
 		StartBattle.start();
-
 	}
 	
 

@@ -11,10 +11,8 @@ import com.huang.model.person.Boss;
 import com.huang.model.person.Hero;
 
 public class Init {
-	
 
-	
-	static int weaponAttack = 0;
+	private static int weaponAttack = 0;
 	static String weaponName = null;
 	static boolean weaponState = false;
 	// 初始化英雄的各项数值
@@ -44,9 +42,6 @@ public class Init {
 			System.out.println("英雄：" + h.getName() + " , 血量：" + h.getBlood()
 					+ " , 魔法：" + h.getMagic() + " , 物防：" + h.getPhysicalDefend()
 					+ " , 法防：" + h.getMagicDefend() + " , 武器：" + weaponName+" , 等级："+h.getLevel()+" , 经验值："+h.getExp());
-			
-			//保存本地
-//			Save.writeHero(h);
 		
 	}
 	
@@ -178,27 +173,37 @@ public class Init {
 			int heroExp=h.getExp();
 			//获取目前升级所需的经验值
 			int currentNeedExp=Config.getLevelMap().get(heroLevel);
+			int overflowExp=0;
+			int exp=heroExp+bossExp;
 			
 			//当获取到的经验值大于所需经验值1,500 ;2,1500;3,3000
-			while(bossExp>=currentNeedExp){
+			while(exp>=currentNeedExp){
 				/*
 				 * 第一次循环：heroLevel:1 heroExp:0 bossExp=1000
-				 * 700=1200-(500-0)
+				 * 1000=3000+0-(3000-1000)
 				 */
-				int overflowExp=bossExp-(currentNeedExp-heroExp);
+				overflowExp=exp-currentNeedExp;
 				/*
 				 * 英雄升级 heroLevel:2 heroExp:700 bossExp=700
 				 * 
 				 */
 				h.setLevel(heroLevel++);
+
 				currentNeedExp=Config.getLevelMap().get(heroLevel);
 				//如果溢出的经验值大于当前升级所需经验值
-				bossExp=overflowExp;
-				//设置英雄的经验值
-				h.setExp(bossExp);
+				exp=overflowExp;
+
 				//设置英雄的等级
 				h.setLevel(heroLevel);
+//				h.setExp(overflowExp);
+				h.setExp(0);
+
+
 			}
+			
+			//设置英雄的经验值
+			h.setExp(exp);
+
 			System.out.println("哈哈，我终于战胜了" + b.getName() + ",圣光会赐予我胜利！当前等级："+heroLevel+",当前经验值："+h.getExp());
 		}
 		

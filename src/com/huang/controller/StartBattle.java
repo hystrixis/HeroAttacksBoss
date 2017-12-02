@@ -40,13 +40,11 @@ public class StartBattle {
 			Init.initHeroLevelExp(h);
 			Init.heroInit(h);
 			Init.bossInit(b);
-			
 		}else{
 			//每次运行都初始化BOSS
 			Init.bossInit(b);
 			h=Save.readHero();
 			Save.readItems(h);
-			
 		}
 
 		Init.start(h, b);
